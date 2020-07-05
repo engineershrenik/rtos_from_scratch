@@ -20,30 +20,20 @@
 #include "em_chip.h"
 #include "em_cmu.h"
 #include "bsp.h"
-
-static volatile uint32_t msTicks; /* counts 1ms timeTicks */
+#include "../rfs_rtos/rfs.h"
 
 static void Delay(uint32_t dlyTicks);
 
 /***************************************************************************//**
- * @brief SysTick_Handler
- * Interrupt Service Routine for system tick counter
- ******************************************************************************/
-void SysTick_Handler(void)
-{
-  msTicks++;       /* increment counter necessary in Delay()*/
-}
-
-/***************************************************************************//**
- * @brief Delays number of msTick Systicks (typically 1 ms)
+ * @brief Delays number of SysTick_Cnt Systicks (typically 1 ms)
  * @param dlyTicks Number of ticks to delay
  ******************************************************************************/
 static void Delay(uint32_t dlyTicks)
 {
   uint32_t curTicks;
 
-  curTicks = msTicks;
-  while ((msTicks - curTicks) < dlyTicks) ;
+  curTicks = SysTick_Cnt;
+  while ((SysTick_Cnt - curTicks) < dlyTicks) ;
 }
 
 /***************************************************************************//**

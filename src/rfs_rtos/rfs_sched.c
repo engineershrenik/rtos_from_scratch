@@ -27,6 +27,8 @@
 
 
 
+volatile uint32_t SysTick_Cnt;
+
 void rfs_scheduler_start(void)
 {
     //Use system tick timer here
@@ -45,4 +47,13 @@ to be modified as it is implemented later*/)
     //check for event
     //decide the next task to be switched to
     //call context switcher to save the context of running task and start context of new tasl
+}
+
+/**************************************************************************//**
+ * @brief SysTick_Handler
+ * Interrupt Service Routine for system tick counter
+ *****************************************************************************/
+void SysTick_Handler(void)
+{
+    SysTick_Cnt++;
 }
